@@ -1,9 +1,59 @@
-import React from 'react'
+import React, { useState } from 'react';
+import Register from './Register';
 
-const Login = () => {
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = () => {
+    // Implement your login logic here
+    // You can use a library like Firebase for authentication
+  };
+
   return (
-    <div>Login</div>
-  )
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-300 via-yellow-200 to-yellow-100">
+      <div className="bg-white p-8 rounded-md shadow-lg w-96 transform transition-transform hover:scale-105">
+        <h2 className="text-4xl font-extrabold text-center text-black mb-6 font-serif">
+          BeeQuick Login
+        </h2>
+        <div className="mb-4">
+          <label className="block text-black text-sm font-semibold mb-2" htmlFor="email">
+            Email:
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
+            placeholder="Your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="mb-6">
+          <label className="block text-black text-sm font-semibold mb-2" htmlFor="password">
+            Password:
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
+            placeholder="Your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button
+          onClick={handleLogin}
+          className="w-full bg-black text-yellow-300 font-semibold py-3 rounded-md hover:bg-gray-900 focus:ring focus:ring-yellow-400"
+        >
+          Log In
+        </button>
+        <div className="mt-4 text-center text-black">
+          Don't have an account? <a href="/Register" className="text-yellow-300 hover:underline">Sign up</a>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default Login
+export default Login;
