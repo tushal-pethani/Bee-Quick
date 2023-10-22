@@ -53,7 +53,7 @@ const NavBar = () => {
               fontFamily: style.fontFamily.button,
             })}
           >
-            <Link to='/Rent'>Rent</Link>
+            <Link to='/Home'>Home</Link>
           </button>
           <button
             className={classNames({
@@ -64,7 +64,7 @@ const NavBar = () => {
               fontFamily: style.fontFamily.button,
             })}
           >
-            <Link to='/frontend/src/pages/Home.jsx'>Home</Link>
+            <Link to='/Rent'>Rent</Link>
           </button>
           <button
             className={classNames({
