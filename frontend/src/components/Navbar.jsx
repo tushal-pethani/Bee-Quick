@@ -21,7 +21,7 @@ const NavBar = () => {
         'w-[97.5vw] h-fit': true,
         'px-10 py-2': true,
         'flex items-center justify-center': true,
-        'rounded-2xl shadow-md bg-[#FFFFFF]': true,
+        'rounded-xl shadow-md bg-[#FFFFFF]': true,
         'dark:bg-[#fff7de] dark:!text-[#000000]': true,
         'mobile:px-2': true,
         fontFamily: style.fontFamily.body,
@@ -51,6 +51,9 @@ const NavBar = () => {
               'text-sm font-Nunito sans text-[#000000] font-normal': true,
               'mobile:text-xs': true,
               fontFamily: style.fontFamily.button,
+               'hover:bg-[#FFA500]': true, 
+              'hover:text-white': true,
+              'hover:border-[#000000]': true,
             })}
           >
             <Link to='/Home'>Home</Link>
@@ -62,6 +65,9 @@ const NavBar = () => {
               'text-sm text-[#000000] font-normal': true,
               'mobile:text-xs': true,
               fontFamily: style.fontFamily.button,
+               'hover:bg-[#FFA500]': true, 
+              'hover:text-white': true,
+              'hover:border-[#000000]': true,
             })}
           >
             <Link to='/Rent'>Rent</Link>
@@ -73,6 +79,9 @@ const NavBar = () => {
               'text-sm text-[#000000]   font-normal': true,
               'mobile:text-xs': true,
               fontFamily: style.fontFamily.button,
+               'hover:bg-[#FFA500]': true, 
+              'hover:text-white': true,
+              'hover:border-[#000000]': true,
             })}
           >
             <Link to='/Login'>Login</Link>
