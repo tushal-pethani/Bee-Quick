@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import React from 'react'
 import Footer from './components/Footer'
-import Navbar from './components/navbar'
+import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -16,7 +16,7 @@ const Layout = () => {
   
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <Outlet />
       <Footer />
     </>
