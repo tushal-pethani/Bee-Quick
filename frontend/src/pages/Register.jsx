@@ -39,8 +39,8 @@ function Register() {
     const numericValue = value.replace(/\D/g, '');
 
     // Ensure the phone number is not longer than 10 digits
-    if (numericValue.length > 10) {
-      setPhoneNumberError('Phone number cannot be longer than 10 digits');
+    if (numericValue.length != 10) {
+      setPhoneNumberError('Phone number should only be of 10 digits');
     } else {
       setPhoneNumberError('');
     }

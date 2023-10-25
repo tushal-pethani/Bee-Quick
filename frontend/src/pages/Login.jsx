@@ -1,13 +1,34 @@
 import React, { useState } from 'react';
-import Register from './Register';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const handleLogin = () => {
-    // Implement your login logic here
-    // You can use a library like Firebase for authentication
+    // Reset error messages
+    setEmailError('');
+    setPasswordError('');
+
+    // Validation checks
+    let isValid = true;
+
+    if (email === '') {
+      isValid = false;
+      setEmailError('The field is required');
+    }
+
+    if (password === '') {
+      isValid = false;
+      setPasswordError('The field is required');
+    }
+
+    if (isValid) {
+      // Implement your login logic here
+      // You can use a library like Firebase for authentication
+    }
   };
 
   return (
@@ -27,20 +48,32 @@ function Login() {
             placeholder="Your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
+          {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
         </div>
         <div className="mb-6">
           <label className="block text-black text-sm font-semibold mb-2" htmlFor="password">
             Password:
           </label>
-          <input
-            type="password"
-            id="password"
-            className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
-            placeholder="Your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
+              placeholder="Your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
+            <button
+              className="absolute top-3 right-3 text-gray-500"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
         </div>
         <button
           onClick={handleLogin}
