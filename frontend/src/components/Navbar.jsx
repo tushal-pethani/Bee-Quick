@@ -51,6 +51,7 @@ const NavBar = () => {
               'text-sm font-Nunito sans text-[#000000] font-normal': true,
               'mobile:text-xs': true,
               fontFamily: style.fontFamily.button,
+
               'hover:bg-[#FFA500]': true,
               'hover:text-white': true,
               'hover:border-[#000000]': true, 
@@ -58,6 +59,7 @@ const NavBar = () => {
             })}
           >
             <Link to='/'>Home</Link>
+
           </button>
           <button
             className={classNames({
@@ -66,9 +68,12 @@ const NavBar = () => {
               'text-sm text-[#000000] font-normal': true,
               'mobile:text-xs': true,
               fontFamily: style.fontFamily.button,
+
               'hover:bg-[#FFA500]': true, 
               'hover:text-white': true,
               'hover:border-[#000000]': true, 
+
+
             })}
           >
             <Link to='/Rent'>Rent</Link>
@@ -80,9 +85,11 @@ const NavBar = () => {
               'text-sm text-[#000000]   font-normal': true,
               'mobile:text-xs': true,
               fontFamily: style.fontFamily.button,
+
               'hover:bg-[#FFA500]': true, 
               'hover:text-white': true,
               'hover:border-[#000000]': true, 
+
             })}
           >
             <Link to='/Login'>Login</Link>
