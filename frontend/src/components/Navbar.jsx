@@ -57,7 +57,7 @@ const NavBar = () => {
 
             })}
           >
-            <Link to='/Home'>Home</Link>
+            <Link to='/'>Home</Link>
           </button>
           <button
             className={classNames({
