@@ -12,6 +12,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Profile from "./pages/Profile";
 import Rent from './pages/Rent'
+import Subscription from './pages/Subscription'
 const Layout = () => {
   
   return (
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/rent",
         element: <Rent />,
+      },
+      {
+        path: "/subscription", 
+        element: <Subscription />,
       },
     ]
   },
