@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Register() {
   const [name, setName] = useState('');
@@ -277,12 +278,14 @@ function Register() {
           />
           {phoneNumberError && <p className="text-red-500 text-sm">{phoneNumberError}</p>}
         </div>
+        <Link to = "/Subscription">
         <button
           onClick={handleRegister}
           className="w-full bg-black text-yellow-300 font-semibold py-3 rounded-md hover-bg-gray-900 focus:ring focus:ring-yellow-400"
         >
           Register
         </button>
+        </Link>
         <div className="mt-4 text-center text-black">
           Already have an account? <a href="/Login" className="text-yellow-300 hover:underline">Login</a>
         </div>

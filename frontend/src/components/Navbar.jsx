@@ -34,7 +34,7 @@ const NavBar = () => {
           'dark:text-[#000000]': true,
           'mobile:text-lg': true,
         })}>
-          <Link to='/'>BeeQuick</Link>
+          <Link to='/Home'>BeeQuick</Link>
         </div>
 
         {/* NavItems... */}
@@ -58,7 +58,7 @@ const NavBar = () => {
 
             })}
           >
-            <Link to='/'>Home</Link>
+            <Link to='/Home'>Home</Link>
 
           </button>
           <button
