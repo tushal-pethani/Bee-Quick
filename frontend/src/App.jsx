@@ -13,6 +13,7 @@ import Register from './pages/Register'
 import Profile from "./pages/Profile";
 import Rent from './pages/Rent'
 import Subscription from './pages/Subscription'
+import Status from "./pages/Status";
 const Layout = () => {
   
   return (
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/subscription", 
         element: <Subscription />,
+      },
+      {
+        path: "/status",
+        element: <Status />
       },
     ]
   },
