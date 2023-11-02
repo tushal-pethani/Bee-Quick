@@ -190,9 +190,11 @@ const Subscription = () => {
             </div>
             <div className="flex justify-center "></div>
             <div className="flex justify-center ">
+            <Link to = "/Rent">
               <button className="bg-[#000000] px-5 py-3 rounded-full text-sm font-medium text-[#FFC629] shadow-sm shadow-indigo-950/10 hover-bg-indigo-600 focus-visible-outline-none focus-visible-ring focus-visible-ring-indigo-300 dark-focus-visible-ring-slate-600 transition-colors-duration-150 transition transform hover:scale-105 ">
-                <Link to="/Rent">Skip for Now</Link>
+                Skip for Now
               </button>
+            </Link>
             </div>
           </div>
         </div>

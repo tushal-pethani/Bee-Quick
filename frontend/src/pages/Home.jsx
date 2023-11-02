@@ -11,7 +11,7 @@ const Home = () => {
                     <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl font-cinzel" style={{fontFamily: 'Cinzel'}}>Ride with Ease</h1>
                     <p class="mt-6 text-lg leading-8 text-gray-600" style={{fontFamily: 'Nunito Sans'}}>Experience the convenience of getting around town with BeeQuick. No more waiting in traffic or struggling to find parking. Our eco-friendly transportation options are perfect for short trips and quick errands.</p>
                     <div class="mt-10 flex items-center justify-center gap-x-6">
-                        <a href="#" class="rounded-md bg-amber-400 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400">Sign up now</a>
+                        <a href="/Register" class="rounded-md bg-amber-400 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400">Sign up now</a>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@ const Home = () => {
                 <h2 class="text-3xl font-bold tracking-tight text-black sm:text-4xl" style={{fontFamily: 'Cinzel'}}><br />Experience the convenience of our bike and scooter taxi service</h2>
                 <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-800" style={{fontFamily: 'Nunito Sans'}}>Join thousands of satisfied customers and drivers who have chosen our eco-friendly transportation solution</p>
                 <div class="mt-10 flex items-center justify-center gap-x-6">
-                    <a href="#" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-amber-400 shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Book a ride</a>
+                    <a href="/Rent" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-amber-400 shadow-sm hover:bg-yellow-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Book a ride</a>
                     <a href="#" class="text-sm font-semibold leading-6 text-white">Become A Driver<span aria-hidden="true">→</span></a>
                 </div>
             </div>
