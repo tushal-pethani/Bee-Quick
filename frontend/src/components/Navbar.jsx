@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { AuthContext } from '../context/authContext';
 
 const NavBar = () => {
   const style = {
@@ -10,6 +11,20 @@ const NavBar = () => {
       button: 'Nunito Sans, serif',
     },
   };
+
+  const { currentUser, logout } = useContext(AuthContext)
+
+  const handleLogout = async (event) => {
+    event.preventDefault()
+
+    try {
+      await logout(currentUser.role)
+      console.log("User has been logged out successfully")
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className={classNames({
@@ -54,7 +69,7 @@ const NavBar = () => {
 
               'hover:bg-[#FFA500]': true,
               'hover:text-white': true,
-              'hover:border-[#000000]': true, 
+              'hover:border-[#000000]': true,
 
             })}
           >
@@ -69,31 +84,56 @@ const NavBar = () => {
               'mobile:text-xs': true,
               fontFamily: style.fontFamily.button,
 
-              'hover:bg-[#FFA500]': true, 
+              'hover:bg-[#FFA500]': true,
               'hover:text-white': true,
-              'hover:border-[#000000]': true, 
+              'hover:border-[#000000]': true,
 
 
             })}
           >
             <Link to='/Rent'>Rent</Link>
           </button>
-          <button
-            className={classNames({
-              'theme-btn-shadow rounded-xl bg-[#FFC629]': true,
-              'px-4 py-2': true,
-              'text-sm text-[#000000]   font-normal': true,
-              'mobile:text-xs': true,
-              fontFamily: style.fontFamily.button,
+          {
+            currentUser ?
+              (
+                <button
+                  className={classNames({
+                    'theme-btn-shadow rounded-xl bg-[#FFC629]': true,
+                    'px-4 py-2': true,
+                    'text-sm text-[#000000]   font-normal': true,
+                    'mobile:text-xs': true,
+                    fontFamily: style.fontFamily.button,
 
-              'hover:bg-[#FFA500]': true, 
-              'hover:text-white': true,
-              'hover:border-[#000000]': true, 
+                    'hover:bg-[#FFA500]': true,
+                    'hover:text-white': true,
+                    'hover:border-[#000000]': true,
 
-            })}
-          >
-            <Link to='/Login'>Login</Link>
-          </button>
+                  })}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              )
+              :
+              (
+                <button
+                  className={classNames({
+                    'theme-btn-shadow rounded-xl bg-[#FFC629]': true,
+                    'px-4 py-2': true,
+                    'text-sm text-[#000000]   font-normal': true,
+                    'mobile:text-xs': true,
+                    fontFamily: style.fontFamily.button,
+
+                    'hover:bg-[#FFA500]': true,
+                    'hover:text-white': true,
+                    'hover:border-[#000000]': true,
+
+                  })}
+                >
+                  <Link to='/Login'>Login</Link>
+                </button>
+              )
+          }
           {/* Include the DarkMode component here if needed */}
         </div>
       </div>

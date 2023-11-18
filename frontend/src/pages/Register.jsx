@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Register() {
@@ -24,6 +24,7 @@ function Register() {
   const [ageError, setAgeError] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState('');
   const [roleError, setRoleError] = useState('');
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -147,7 +148,7 @@ function Register() {
       try {
         await axios.post('http://localhost:8800/api/user/register', formData)
         console.log("Registration successfull")
-        // navigate('/studentlogin')
+        navigate('/login')
       } catch (error) {
         setErr(error.response.data)
         console.log("Registration failed")
