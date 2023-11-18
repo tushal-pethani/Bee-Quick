@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function Register() {
+  const [err, setErr] = useState(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -48,7 +50,8 @@ function Register() {
     setPhoneNumber(numericValue);
   };
 
-  const handleRegister = () => {
+  const handleRegister = async (event) => {
+    event.preventDefault()
     let isValid = true;
 
     if (name === '') {
@@ -127,15 +130,37 @@ function Register() {
     }
 
     if (isValid) {
+
+      var age1 = parseInt(age, 10)
+      var phNo = parseInt(phoneNumber, 10)
+      const formData = {
+        userid: email,
+        pwd: password,
+        age: age1,
+        ph_no: phNo,
+        gender: gender,
+        residence: residence,
+        name: name,
+      }
+      console.log(formData)
       // Your registration logic here, e.g., using Firebase or an API call.
-      console.log('Registration successful');
-      console.log('Name:', name);
-      console.log('Email:', email);
-      console.log('Gender:', gender);
-      console.log('Residence:', residence);
-      console.log('Age:', age);
-      console.log('Phone Number:', phoneNumber);
-      console.log('Role:', role);
+      try {
+        await axios.post('http://localhost:8800/api/user/register', formData)
+        console.log("Registration successfull")
+        // navigate('/studentlogin')
+      } catch (error) {
+        setErr(error.response.data)
+        console.log("Registration failed")
+        console.log(error)
+      }
+      // console.log('Registration successful');
+      // console.log('Name:', name);
+      // console.log('Email:', email);
+      // console.log('Gender:', gender);
+      // console.log('Residence:', residence);
+      // console.log('Age:', age);
+      // console.log('Phone Number:', phoneNumber);
+      // console.log('Role:', role);
     }
   };
 
@@ -152,6 +177,7 @@ function Register() {
           Role:
         </label>
         <select
+          name="role"
           id="role"
           className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
           value={role}
@@ -171,6 +197,7 @@ function Register() {
         </label>
         <input
           type="text"
+          name="name"
           id="name"
           className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
           placeholder="Your name"
@@ -189,6 +216,7 @@ function Register() {
         </label>
         <input
           type="email"
+          name='email'
           id="email"
           className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
           placeholder="Your email"
@@ -206,6 +234,7 @@ function Register() {
         <div className="relative">
           <input
             type={showPassword ? "text" : "password"}
+            name='password'
             id="password"
             className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
             placeholder="Your password"
@@ -256,6 +285,7 @@ function Register() {
           Gender:
         </label>
         <select
+          name='gender'
           id="gender"
           className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
           value={gender}
@@ -278,6 +308,7 @@ function Register() {
         </label>
         <input
           type="text"
+          name='residence'
           id="residence"
           className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
           placeholder="Your residence"
@@ -294,6 +325,7 @@ function Register() {
         </label>
         <input
           type="number"
+          name='age'
           id="age"
           className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
           placeholder="Your age"
@@ -312,6 +344,7 @@ function Register() {
         </label>
         <input
           type="tel"
+          name='phoneNumber'
           id="phoneNumber"
           className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
           placeholder="Your phone number"
