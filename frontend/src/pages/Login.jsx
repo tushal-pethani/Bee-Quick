@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState,useContext } from 'react';
+import { Link,useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/authContext.jsx';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -7,8 +8,12 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [err, setErr] = useState(null)
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = async (event) => {
+    event.preventDefault()
     // Reset error messages
     setEmailError('');
     setPasswordError('');
@@ -27,8 +32,19 @@ function Login() {
     }
 
     if (isValid) {
+      const formData = {
+        userid: email,
+        pwd: password,
+      }
       // Implement your login logic here
       // You can use a library like Firebase for authentication
+      try {
+        await login(formData, 'User');
+        console.log("Login done")
+        navigate('/')
+      } catch (err) {
+        setErr(err.response);
+      }
     }
   };
 
@@ -44,6 +60,7 @@ function Login() {
           </label>
           <input
             type="email"
+            name='email'
             id="email"
             className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
             placeholder="Your email"
@@ -61,6 +78,7 @@ function Login() {
             <input
               type={showPassword ? "text" : "password"}
               id="password"
+              name='password'
               className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
               placeholder="Your password"
               value={password}

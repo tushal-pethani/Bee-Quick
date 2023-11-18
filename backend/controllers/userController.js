@@ -40,7 +40,7 @@ export const register = (req, res) => {
 // FUNCTION: Student LogIn
 export const login = (req, res) => {
     const { userid, pwd } = req.body;
-
+    const pass = pwd
     // CHECKING IF THE STUDENT EXISTS OR NOT
     var q = "SELECT * FROM users WHERE userid = ?";
   
@@ -53,7 +53,7 @@ export const login = (req, res) => {
       }
   
       // CHECKING IF THE ENTERED PASSWORD MATCHED THE STUDENT'S PASSWORD OR NOT
-      const checkPassword = bcrypt.compareSync(pwd, data[0].pwd);
+      const checkPassword = bcrypt.compareSync(pass, data[0].pwd);
   
       if (!checkPassword) {
         return res.status(400).json("Wrong password or username");
