@@ -16,6 +16,7 @@ import Subscription from './pages/Subscription'
 import Status from "./pages/Status";
 import Options from "./pages/options";
 import DriverLogin from "./pages/DriverLogin";
+import EmpRegister from "./pages/EmpRegister";
 const Layout = () => { 
   
   return (
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: "/DriverLogin",
         element: <DriverLogin />
+      },
+      {
+        path: "/EmpRegister",
+        element: <EmpRegister />
       },
 
     ]
