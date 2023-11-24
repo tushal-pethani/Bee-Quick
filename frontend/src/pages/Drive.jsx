@@ -5,15 +5,13 @@ function DriverPage() {
   const [rideFound, setRideFound] = useState(false);
 
   useEffect(() => {
-    // Simulating fetching ride details from an API or database
-    // Replace this with actual API calls or database queries
+
     const fetchRideDetails = async () => {
       try {
-        // Simulate fetching ride details from an API or database
-        const response = await fetch('api/rides/123'); // Replace 'api/rides/123' with your actual endpoint
+        const response = await fetch('api/rides/123'); // Replace with your actual endpoint
         const data = await response.json();
 
-        // Check if ride details are found
+
         if (data && data.customerName && data.contactNumber && data.email && data.gender) {
           setRideDetails({
             customerName: data.customerName,
@@ -32,11 +30,18 @@ function DriverPage() {
       }
     };
 
-    // Call the function to fetch ride details
+    
+
     fetchRideDetails();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleEndRide = () => {
+    // Perform actions to end the ride
+    // For example, reset state variables or make additional API calls
+    console.log('Ending the ride...');
+  };
 
   return (
     <div className="bg-gradient-to-r from-tertiary via-secondary to-primary h-screen flex items-center justify-center">
@@ -51,6 +56,12 @@ function DriverPage() {
               <p className="text-lg font-semibold">Gender: {rideDetails.gender}</p>
               {/* Add other ride details here */}
             </div>
+            <button
+              className="bg-primary text-white p-2 mt-4 rounded-md hover:bg-opacity-80"
+              onClick={() => handleEndRide()}
+            >
+              End Ride
+            </button>
           </>
         ) : (
           <div className="text-2xl font-semibold">
