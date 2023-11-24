@@ -16,11 +16,9 @@ export const AuthContextProvider = ({ children }) => {
         if (role === "User") {
             endpoint = "http://localhost:8800/api/user/login";
         }
-        // } else if (role === "Driver") {
-            // endpoint = "http://localhost:8800/api//login";
-        // } else if (role === "warden") {
-        //     endpoint = "http://localhost:8800/api/wardens/login";
-        // }
+        else if (role === "Driver") {
+            endpoint = "http://localhost:8800/api/driver/login";
+        } 
 
         const res = await axios.post(endpoint, formData, {
             withCredentials: true,
@@ -35,11 +33,9 @@ export const AuthContextProvider = ({ children }) => {
         if (role === "User") {
             endpoint = "http://localhost:8800/api/user/logout";
         } 
-        // else if (role === "caretaker") {
-        //     endpoint = "http://localhost:8800/api/caretakers/logout";
-        // } else if (role === "warden") {
-        //     endpoint = "http://localhost:8800/api/wardens/logout";
-        // }
+        else if (role === "Driver") {
+            endpoint = "http://localhost:8800/api/driver/logout";
+        } 
 
         const res = await axios.post(endpoint);
         setCurrentUser(null);

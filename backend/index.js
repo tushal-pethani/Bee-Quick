@@ -3,6 +3,8 @@ import { db } from './db.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import userRoutes from './routes/userRoute.js'
+import driverRoutes from './routes/driverRoute.js'
+import rideRoutes from './routes/rideRoute.js'
 const app = express()
 //MIDDLEWARES
 app.use((req, res, next) => {
@@ -23,6 +25,8 @@ app.use(express.json());
 
 //ROUTES
 app.use('/api/user',userRoutes)
+app.use('/api/driver',driverRoutes)
+app.use('/api/ride',rideRoutes)
 
 app.get("/", (req, res) => {
     res.json("Hello there!")
