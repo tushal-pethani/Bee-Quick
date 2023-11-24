@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/authContext';
 // import Register from './Register';
 
 function DriverLogin() {
@@ -8,8 +9,11 @@ function DriverLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const { login } = useContext(AuthContext)
+  const navigate = useNavigate()
 
-  const handleLogin = () => {
+  const handleLogin = async (event) => {
+    event.preventDefault()
     // Reset error messages
     setEmailError('');
     setPasswordError('');
@@ -28,12 +32,20 @@ function DriverLogin() {
     }
 
     if (isValid) {
-      // Implement your login logic here for a driver login
-      // You can use a backend service or authentication system
-      // Example: Authenticate the driver using a backend API
-      // You may utilize libraries like Axios for making API requests
-      // For demonstration purposes, a console log is used here
-      console.log('Driver login logic will be implemented here.');
+      const formData = {
+        emp_id: email,
+        pwd: password,
+      }
+      console.log(formData)
+      // Implement your login logic here
+      // You can use a library like Firebase for authentication
+      try {
+        await login(formData, 'Driver');
+        console.log("Login done")
+        navigate('/drive')
+      } catch (err) {
+        console.log(err)
+      }
     }
   };
 
@@ -81,16 +93,16 @@ function DriverLogin() {
             </button>
           </div>
         </div>
-        <Link to = "/Drive">
-        <button
-          onClick={handleLogin}
-          className="w-full bg-black text-amber-300 font-semibold py-3 rounded-md hover:bg-gray-900 focus:ring focus:ring-amber-400"
-        >
-          Log In
-        </button>
+        <Link to="/Drive">
+          <button
+            onClick={handleLogin}
+            className="w-full bg-black text-amber-300 font-semibold py-3 rounded-md hover:bg-gray-900 focus:ring focus:ring-amber-400"
+          >
+            Log In
+          </button>
         </Link>
         <div className="mt-4 text-center text-black">
-          Don't have an account? <a href="/Register" className="text-amber-300 hover:underline">Sign up</a>
+          Don't have an account? <a href="/EmpRegister" className="text-amber-300 hover:underline">Sign up</a>
         </div>
       </div>
     </div>

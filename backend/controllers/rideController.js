@@ -66,7 +66,7 @@ export const createRide = async (req, res) => {
             } else {
                 const updateAvail = `UPDATE bikes SET avail = ? WHERE bike_id = ?`
                 db.query(updateAvail, ["no", bike], (err, data) => {
-                    if(err) {
+                    if (err) {
                         console.log("some error")
                         return res.status(500).json(err)
                     } return res.status(200).json(data)
@@ -80,15 +80,76 @@ export const createRide = async (req, res) => {
 };
 
 export const getDetails = (req, res) => {
-    const {userid} = req.query
+    const { userid } = req.query
 
     const q = `SELECT * FROM ride WHERE user_id = ?`
 
     db.query(q, [userid], (err, data) => {
-        if(err) {
+        if (err) {
             console.log("some error in backend")
             return res.status(500).json(err)
         } console.log(data)
+        return res.status(200).json(data)
+    })
+}
+
+export const getDriverDetails = (req, res) => {
+    const { emp_id } = req.query
+
+    const q = `SELECT 
+    r.bike_id,
+    u.name AS user_name,
+    l1.loc_name AS loc_pick_name,
+    l1.pincode AS loc_pick_pincode,
+    l1.street AS loc_pick_street,
+    l1.city AS loc_pick_city,
+    l1.state AS loc_pick_state,
+    l1.country AS loc_pick_country,
+    l2.loc_name AS loc_drop_name,
+    l2.pincode AS loc_drop_pincode,
+    l2.street AS loc_drop_street,
+    l2.city AS loc_drop_city,
+    l2.state AS loc_drop_state,
+    l2.country AS loc_drop_country
+FROM 
+    ride r
+JOIN 
+    users u ON r.user_id = u.userid
+JOIN 
+    location l1 ON r.loc_pick = l1.loc_id
+JOIN 
+    location l2 ON r.loc_drop = l2.loc_id
+WHERE 
+    r.time_drop IS NULL
+    AND r.bike_id IN (SELECT bike_id FROM bikes WHERE owner_id = ?);
+
+
+`
+    db.query(q, [emp_id], (err, data) => {
+        if (err) {
+            console.log("some error in backend")
+            return res.status(500).json(err)
+        }
+        else {
+            console.log(data)
+            return res.status(200).json(data)
+        }
+    })
+}
+
+export const updateDropTime = (req, res) => {
+    const { bike_id } = req.body
+    console.log(bike_id)
+
+    const date = new Date()
+
+    const q = `UPDATE ride SET time_drop = ? WHERE bike_id = ?`
+
+    db.query(q, [date, bike_id], (err, data) => {
+        if (err) {
+            console.log("some error in backend")
+            return res.status(500).json(err)
+        }
         return res.status(200).json(data)
     })
 }
