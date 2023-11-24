@@ -17,6 +17,7 @@ import Status from "./pages/Status";
 import Options from "./pages/options";
 import DriverLogin from "./pages/DriverLogin";
 import EmpRegister from "./pages/EmpRegister";
+import LoginRoot from "./pages/login_root";
 const Layout = () => { 
   
   return (
@@ -62,15 +63,19 @@ const router = createBrowserRouter([
         element: <Options />
       },
       {
-        path: "/DriverLogin",
-        element: <DriverLogin />
-      },
-      {
-        path: "/EmpRegister",
-        element: <EmpRegister />
-      },
+        path: "/login_root",
+        element: <LoginRoot />
+      }
 
     ]
+  },
+  {
+    path: "/EmpRegister",
+    element: <EmpRegister />
+  },
+  {
+    path: "/DriverLogin",
+    element: <DriverLogin />
   },
   {
     path: "/register",

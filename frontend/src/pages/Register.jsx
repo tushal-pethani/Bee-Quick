@@ -166,7 +166,7 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-300 via-yellow-200 to-yellow-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br  from-amber-400 via-amber-300 to-amber-100">
   <div className="bg-white p-8 rounded-md shadow-lg w-96">
     <h2 className="text-4xl font-extrabold text-center text-black mb-6 font-serif">
       BeeQuick Register
