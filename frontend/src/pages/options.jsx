@@ -56,11 +56,11 @@ function Options(props) {
     <div className="flex flex-col items-center justify-center h-screen bg-gray-300">
       <div className="bg-amber-300 p-8 rounded-md">
         <h1 className="text-3xl font-bold mb-6 text-gray-800">Available drivers</h1>
-        <div className="flex overflow-x-auto space-x-4">
+        <div className="max-w-full flex flex-wrap justify-center space-x-4">
           {drivers.map((driver, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-72 p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 space-y-2 bg-gray-800"
+              className="flex-shrink-0 w-72 p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 space-y-2 bg-gray-800 mb-4"
             >
               <h2 className="text-xl font-semibold text-amber-300">{driver.name}</h2>
               <div className="flex items-center justify-between">
