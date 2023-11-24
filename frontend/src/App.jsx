@@ -14,7 +14,8 @@ import Drive from "./pages/Drive";
 import Rent from './pages/Rent'
 import Subscription from './pages/Subscription'
 import Status from "./pages/Status";
-const Layout = () => {
+import Options from "./pages/options";
+const Layout = () => { 
   
   return (
     <>
@@ -54,6 +55,11 @@ const router = createBrowserRouter([
         path: "/status",
         element: <Status />
       },
+      {
+        path: "/options",
+        element: <Options />
+      },
+
     ]
   },
   {

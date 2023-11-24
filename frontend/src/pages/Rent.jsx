@@ -15,8 +15,6 @@ function rental() {
 
   return (
     <div className="w-screen h-screen flex items-start bg-gray-500 overflow-hidden relative">
-
-      <Sidebar />
       <div
         style={{ backgroundColor: '#FFC629' }}
         className={
@@ -58,7 +56,7 @@ function rental() {
          
 
           <div className="text-right"> 
-            <Link to = "/Status">
+            <Link to = "/Options">
             <button
               style={{ backgroundColor: '#000000', color: '#FFC629' }}
               className=" px-4 sm:px-5 md:px-6 lg:px-8 py-2 sm:py-2.5 md:py-3 lg:py-4 rounded-lg shadow-lg hover:shadow-xl active:bg-blue-700 focus:outline-none focus:shadow-outline transition-all"
