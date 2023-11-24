@@ -10,7 +10,7 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import Profile from "./pages/Drive";
+import Drive from "./pages/Drive";
 import Rent from './pages/Rent'
 import Subscription from './pages/Subscription'
 import Status from "./pages/Status";
