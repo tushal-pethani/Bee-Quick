@@ -1,12 +1,56 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-function Options() {
-  const drivers = defaultDrivers;
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/authContext';
+import axios from 'axios'
 
-  const handleBookDriver = (driverName) => {
-    // You can implement the logic to handle booking the driver here
-    console.log(`Booking ${driverName}`);
-  };
+function Options(props) {
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+
+  const currentLocation = searchParams.get('currentLocation')
+  const destination = searchParams.get('destination')
+  
+  const [drivers, setDrivers] = useState([])
+  const {currentUser} = useContext(AuthContext)
+  const {userid} = currentUser
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+
+    const fetchDrivers = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8800/api/ride/checkDrivers`)
+        setDrivers(res.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    fetchDrivers()
+  }, [])
+
+  const handleBookRide = async (owner_id) => {
+    // event.preventDefault()
+
+    const sendData = {
+      user_id: userid,
+      loc_pick: currentLocation,
+      loc_drop: destination,
+      owner_id: owner_id
+    }
+    console.log(sendData)
+
+    try {
+      const req = await axios.post('http://localhost:8800/api/ride/createRide', sendData)
+      console.log("Ride created")
+      console.log(req)
+      navigate('/status')
+    } catch (error) {
+      console.log("error in frontend")
+      console.log(error)
+    }
+  }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-300">
@@ -20,19 +64,17 @@ function Options() {
             >
               <h2 className="text-xl font-semibold text-amber-300">{driver.name}</h2>
               <div className="flex items-center justify-between">
-                <p className='text-xs text-white font-semibold'>{driver.distance}</p>
+                <p className='text-xs text-white font-semibold'>{driver.bike_id}</p>
                 <span className="inline-block px-4 py-1 rounded-full text-sm text-white">
                   {driver.gender}
                 </span>
               </div>
-              <Link to = "/Status">
               <button
                 className="bg-black text-white px-4 py-2 rounded-md mt-4 transition-all duration-300 hover:bg-amber-300 hover:text-black transform hover:scale-105"
-                onClick={() => handleBookDriver(driver.name)}
+                onClick={() => handleBookRide(driver.owner_id)}
               >
                 Book
               </button>
-              </Link>
             </div>
           ))}
         </div>

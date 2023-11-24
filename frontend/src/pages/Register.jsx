@@ -263,7 +263,7 @@ function Register() {
           <input
             type={showConfirmPassword ? "text" : "password"}
             id="confirmPassword"
-            className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
+            className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300" 
             placeholder="Confirm your password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
