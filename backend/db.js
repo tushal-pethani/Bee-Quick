@@ -5,6 +5,6 @@ export const db = mysql.createConnection(
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'beequick',
+        database: 'bee-quick',
     }
 )

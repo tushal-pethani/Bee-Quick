@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function Register() {
+function EmpRegister() {
   const [err, setErr] = useState(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -24,6 +24,11 @@ function Register() {
   const [ageError, setAgeError] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState('');
   const [roleError, setRoleError] = useState('');
+  const [bikePlateNumber, setBikePlateNumber] = useState('');
+  const [ownerId, setOwnerId] = useState('');
+  const [manufacturingDate, setManufacturingDate] = useState('');
+  const [model, setModel] = useState('');
+  const [date, setDate] = useState('')
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -129,44 +134,70 @@ function Register() {
     } else {
       setRoleError('');
     }
+    // if (role === 'Driver') {
+    //     if (bikePlateNumber === '') {
+    //       isValid = false;
+    //       setBikePlateNumberError('This field is required');
+    //     } else {
+    //       setBikePlateNumberError('');
+    //     }
+    
+    //     if (ownerId === '') {
+    //       isValid = false;
+    //       setOwnerIdError('This field is required');
+    //     } else {
+    //       setOwnerIdError('');
+    //     }
+    
+    //     if (manufacturingDate === '') {
+    //       isValid = false;
+    //       setManufacturingDateError('This field is required');
+    //     } else {
+    //       setManufacturingDateError('');
+    //     }
+    
+    //     if (model === '') {
+    //       isValid = false;
+    //       setModelError('This field is required');
+    //     } else {
+    //       setModelError('');
+    //     }
+    //   }
 
     if (isValid) {
 
       var age1 = parseInt(age, 10)
       var phNo = parseInt(phoneNumber, 10)
       const formData = {
-        userid: email,
+        emp_id: email,
         pwd: password,
-        age: age1,
+        name: name,
         ph_no: phNo,
         gender: gender,
+        role: role,
+        age: age1,
         residence: residence,
-        name: name,
+        bike_id: bikePlateNumber,
+        model: model,
+        avail: "yes",
+        manufacturing_date: manufacturingDate
       }
       console.log(formData)
       // Your registration logic here, e.g., using Firebase or an API call.
       try {
-        await axios.post('http://localhost:8800/api/user/register', formData)
+        await axios.post('http://localhost:8800/api/driver/register', formData)
         console.log("Registration successfull")
-        navigate('/login')
+        navigate('/DriverLogin')
       } catch (error) {
         setErr(error.response.data)
         console.log("Registration failed")
         console.log(error)
       }
-      // console.log('Registration successful');
-      // console.log('Name:', name);
-      // console.log('Email:', email);
-      // console.log('Gender:', gender);
-      // console.log('Residence:', residence);
-      // console.log('Age:', age);
-      // console.log('Phone Number:', phoneNumber);
-      // console.log('Role:', role);
     }
   };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br  from-amber-400 via-amber-300 to-amber-100">
+  return(
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-300 via-yellow-200 to-yellow-100">
   <div className="bg-white p-8 rounded-md shadow-lg w-96">
     <h2 className="text-4xl font-extrabold text-center text-black mb-6 font-serif">
       BeeQuick Register
@@ -187,10 +218,70 @@ function Register() {
         >
           <option value="">Select Role</option>
           <option value="Driver">Driver</option>
-          <option value="Customer">Customer</option>
+          <option value="Manager">Manager</option>
         </select>
         {roleError && <p className="text-red-500 text-sm">{roleError}</p>}
-      </div>
+        {role === 'Driver' && (
+            <div>
+              <label className="block text-black text-sm font-semibold mb-2" htmlFor="bikePlateNumber">
+                Bike Plate Number:
+              </label>
+              <input
+                type="text"
+                name='bikePlateNumber'
+                id="bikePlateNumber"
+                className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
+                placeholder="Bike plate number"
+                value={bikePlateNumber}
+                onChange={(e) => setBikePlateNumber(e.target.value)}
+                required
+              />
+
+              {/* <label className="block text-black text-sm font-semibold mb-2" htmlFor="ownerId">
+                Owner ID:
+              </label>
+              <input
+                type="text"
+                name='ownerId'
+                id="ownerId"
+                className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
+                placeholder="Owner ID"
+                value={ownerId}
+                onChange={(e) => setOwnerId(e.target.value)}
+                required
+              /> */}
+
+              <label className="block text-black text-sm font-semibold mb-2" htmlFor="manufacturingDate">
+                Bike Manufacturing Date:
+              </label>
+              <input
+                type="date"
+                name='manufacturingDate'
+                id="manufacturingDate"
+                className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
+                placeholder="Bike Manufacturing date"
+                value={manufacturingDate}
+                onChange={(e) => setManufacturingDate(e.target.value)}
+                required
+              />
+
+              <label className="block text-black text-sm font-semibold mb-2" htmlFor="model">
+                Bike Model:
+              </label>
+              <input
+                type="text"
+                name='model'
+                id="model"
+                className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
+                placeholder="Model"
+                value={model}
+                onChange={(e) => setModel(e.target.value)}
+                required
+              />
+            </div>
+          )}
+        </div>
+
 
       <div>
         <label className="block text-black text-sm font-semibold mb-2" htmlFor="name">
@@ -208,6 +299,7 @@ function Register() {
         />
         {nameError && <p className="text-red-500 text-sm">{nameError}</p>}
       </div>
+      
     </div>
 
     <div className="grid grid-cols-2 gap-4 mb-4">
@@ -263,7 +355,7 @@ function Register() {
           <input
             type={showConfirmPassword ? "text" : "password"}
             id="confirmPassword"
-            className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300" 
+            className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-yellow-300"
             placeholder="Confirm your password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -338,6 +430,7 @@ function Register() {
       </div>
     </div>
 
+
     <div className="grid grid-cols-2 gap-4 mb-4">
       <div>
         <label className="block text-black text-sm font-semibold mb-2" htmlFor="phoneNumber">
@@ -360,27 +453,22 @@ function Register() {
     </div>
 
     <div className="flex items-center justify-between mb-4">
-      <Link to="/Subscription" className="w-full">
         <button
           onClick={handleRegister}
           className="w-full bg-black text-yellow-300 font-semibold py-3 rounded-md hover:bg-gray-900 focus:ring focus:ring-yellow-400"
         >
           Register
         </button>
-      </Link>
     </div>
 
     <div className="text-center text-black">
       Already have an account?{" "}
-      <Link to="/Login" className="text-yellow-300 hover:underline">
+      <Link to="" className="text-yellow-300 hover:underline">
         Login
       </Link>
     </div>
   </div>
 </div>
-
-
-  );
+);
 }
-
-export default Register;
+export default EmpRegister;
