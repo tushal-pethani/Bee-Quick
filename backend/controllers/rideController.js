@@ -153,3 +153,26 @@ export const updateDropTime = (req, res) => {
         return res.status(200).json(data)
     })
 }
+
+export const cancelRide = (req, res) => {
+    const { bike_id } = req.body;
+
+    const updateAvail = `UPDATE bikes SET avail = ? WHERE bike_id = ?`;
+    db.query(updateAvail, ["yes", bike_id], (err, data) => {
+        if (err) {
+            console.log("Error updating availability:", err);
+            return res.status(500).json(err);
+        }
+
+        const cancelRideQuery = `UPDATE ride SET time_drop = ? WHERE bike_id = ?`;
+        const date = new Date();
+        db.query(cancelRideQuery, [date, bike_id], (err, data) => {
+            if (err) {
+                console.log("Error updating drop time for canceled ride:", err);
+                return res.status(500).json(err);
+            }
+
+            return res.status(200).json(data);
+        });
+    });
+};
