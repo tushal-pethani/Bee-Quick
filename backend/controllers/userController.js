@@ -5,6 +5,20 @@ import { User } from "../models/user.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
+const generateAccessAndRefreshTokens = async (userId) => {
+  try {
+    const user = await User.findById(userId);
+    const accessToken = user.generateAccessToken();
+    const refreshToken = user.generateRefreshToken();
+
+    user.refreshToken = refreshToken;
+    await user.save({ validateBeforeSave: false });
+    return { accessToken, refreshToken };
+  } catch (error) {
+    throw new ApiError(500, "Something went wrong while generating tokens");
+  }
+};
+
 export const register = async (req, res) => {
   const { userId, name, gender, residence, age, ph_no, pwd } = req.body;
 
@@ -43,38 +57,40 @@ export const register = async (req, res) => {
     .json(new ApiResponse(200, createdUser, "User registered Successfully"));
 };
 // FUNCTION: Student LogIn
-export const login = (req, res) => {
-  const { userid, pwd } = req.body;
-  const pass = pwd;
-  // CHECKING IF THE STUDENT EXISTS OR NOT
-  var q = "SELECT * FROM users WHERE userid = ?";
-
-  db.query(q, [userid], (err, data) => {
-    if (err) {
-      return res.status(500).json(err);
-    }
-    if (data.length === 0) {
-      return res.status(404).json("User not found!");
-    }
-
-    // CHECKING IF THE ENTERED PASSWORD MATCHED THE STUDENT'S PASSWORD OR NOT
-    const checkPassword = bcrypt.compareSync(pass, data[0].pwd);
-
-    if (!checkPassword) {
-      return res.status(400).json("Wrong password or username");
-    }
-
-    // ASSIGNING A TOKEN TO THE STUDENT
-    const token = jwt.sign({ userid: data[0].userid }, "secretkey");
-    const { pwd, ...other } = data[0];
-
-    res
-      .cookie("accessToken", token, {
-        httpOnly: true,
-      })
-      .status(200)
-      .json(other);
-  });
+export const login = async (req, res) => {
+  const { userId } = req.body;
+  if (!userId || !req.body.pwd) {
+    throw new ApiError(400, "userId and password is required");
+  }
+  const user = await User.findOne({ userId });
+  if (!user) {
+    throw new ApiError(404, "User does not exists");
+  }
+  const isPasswordValid = await user.isPasswordCorrect(req.body.pwd);
+  if (!isPasswordValid) {
+    throw new ApiError(401, "Invalid user credentials");
+  }
+  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+    user._id
+  );
+  const loggedInUser = await User.findById(user._id).select(
+    "-pwd -refreshToken"
+  );
+  const options = {
+    httpOnly: true,
+    secured: true,
+  };
+  return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+      new ApiResponse(
+        200,
+        { user: loggedInUser, accessToken, refreshToken },
+        "User LoggedIn Successfully"
+      )
+    );
 };
 
 // FUNCTION: Student LogOut

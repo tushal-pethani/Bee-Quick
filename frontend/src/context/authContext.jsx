@@ -14,10 +14,10 @@ export const AuthContextProvider = ({ children }) => {
 
         // ENDPOINTS DETERMINATION
         if (role === "User") {
-            endpoint = "http://localhost:8800/api/user/login";
+            endpoint = "/api/v1/user/login";
         }
         else if (role === "Driver") {
-            endpoint = "http://localhost:8800/api/driver/login";
+            endpoint = "/api/v1/driver/login";
         } 
 
         const res = await axios.post(endpoint, formData, {
@@ -31,10 +31,10 @@ export const AuthContextProvider = ({ children }) => {
 
         // ENDPOINTS DETERMINATION
         if (role === "User") {
-            endpoint = "http://localhost:8800/api/user/logout";
+            endpoint = "/api/v1/user/logout";
         } 
         else if (role === "Driver") {
-            endpoint = "http://localhost:8800/api/driver/logout";
+            endpoint = "/api/v1/driver/logout";
         } 
 
         const res = await axios.post(endpoint);

@@ -1,5 +1,3 @@
-// userid, name, gender, residence, age, ph_no, pwd
-
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -49,50 +47,37 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-const saltRounds = 10;
+
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("pwd")) {
-    return next();
-  }
-  try {
-    const salt = await bcrypt.genSalt(10);
-    await bcrypt.hash(this.pwd, salt, (err, hash) => {
-      if (err) {
-        next(err);
-      }
-      this.pwd = hash;
-    });
-    next();
-  } catch (error) {
-    next(error);
-  }
+  if (!this.isModified("pwd")) return next();
+  this.pwd = await bcrypt.hash(this.pwd, 10);
+  next();
 });
 userSchema.methods.isPasswordCorrect = async function (pwd) {
   return await bcrypt.compare(pwd, this.pwd);
 };
-// userSchema.methods.generateAccessToken = function () {
-//   return jwt.sign(
-//     {
-//       _id: this._id,
-//       email: this.email,
-//       username: this.username,
-//       fullName: this.fullName,
-//     },
-//     process.env.ACCESS_TOKEN_SECRET,
-//     {
-//       expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
-//     }
-//   );
-// };
-// userSchema.methods.generateRefreshToken = function () {
-//   return jwt.sign(
-//     {
-//       _id: this._id,
-//     },
-//     process.env.REFRESH_TOKEN_SECRET,
-//     {
-//       expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
-//     }
-//   );
-// };
+userSchema.methods.generateAccessToken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+      userId: this.userId,
+      name: this.name,
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+    }
+  );
+};
+userSchema.methods.generateRefreshToken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+    },
+    process.env.REFRESH_TOKEN_SECRET,
+    {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+    }
+  );
+};
 export const User = mongoose.model("User", userSchema);
