@@ -1,5 +1,3 @@
-import { db } from "../db.js";
-
 export const checkDrivers = (req, res) => {
     const q = `SELECT owner_id, bike_id, employees.name, gender FROM bikes, employees WHERE bikes.owner_id = employees.emp_id AND avail = ?`
 
